@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Asistencia Estudiantil (SAE) - Instituto Everest</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           VARIABLES DE DISEÑO Y TEMAS
+           ========================================================================== */
+        :root {
+            /* Tema 1: Azul Institucional (Claro por defecto) */
+            --bg-body: #f1f5f9;
+            --bg-container: #ffffff;
+            --bg-card-subtle: #f8fafc;
+            --bg-header-gradient: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            --bg-nav: #ffffff;
+            --nav-btn-active-bg: #2563eb;
+            --nav-btn-active-text: #ffffff;
+            --nav-btn-text: #475569;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #dbeafe;
+            --primary-focus: rgba(37, 99, 235, 0.25);
+            
+            --success: #10b981;
+            --success-bg: #d1fae5;
+            --success-text: #065f46;
+            
+            --warning: #f59e0b;
+            --warning-bg: #fef3c7;
+            --warning-text: #92400e;
+            
+            --danger: #ef4444;
+            --danger-bg: #fee2e2;
+            --danger-text: #991b1b;
+            
+            --info: #0ea5e9;
+            --info-bg: #e0f2fe;
+            --info-text: #0369a1;
+
+            --border-color: #e2e8f0;
+            --border-focus: #3b82f6;
+            
+            --table-header-bg: #f8fafc;
+            --table-header-text: #334155;
+            --table-row-hover: #f8fafc;
+            --table-row-alt: #ffffff;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+            --shadow-card: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+        }
+
+        /* Tema 2: Modo Oscuro Pro */
+        body.theme-dark {
+            --bg-body: #0b0f19;
+            --bg-container: #151c2c;
+            --bg-card-subtle: #1e293b;
+            --bg-header-gradient: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+            --bg-nav: #151c2c;
+            --nav-btn-active-bg: #38bdf8;
+            --nav-btn-active-text: #0b0f19;
+            --nav-btn-text: #94a3b8;
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+            --primary-light: #082f49;
+            --primary-focus: rgba(56, 189, 248, 0.25);
+            
+            --success: #34d399;
+            --success-bg: #064e3b;
+            --success-text: #a7f3d0;
+            
+            --warning: #fbbf24;
+            --warning-bg: #78350f;
+            --warning-text: #fde68a;
+            
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --danger-text: #fecaca;
+            
+            --info: #38bdf8;
+            --info-bg: #0c4a6e;
+            --info-text: #bae6fd;
+
+            --border-color: #334155;
+            --border-focus: #38bdf8;
+            
+            --table-header-bg: #1e293b;
+            --table-header-text: #cbd5e1;
+            --table-row-hover: #1e293b;
+            --table-row-alt: #151c2c;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Tema 3: Verde Esmeralda Académico */
+        body.theme-emerald {
+            --bg-body: #f0fdf4;
+            --bg-container: #ffffff;
+            --bg-card-subtle: #f7fee7;
+            --bg-header-gradient: linear-gradient(135deg, #064e3b 0%, #059669 100%);
+            --bg-nav: #ffffff;
+            --nav-btn-active-bg: #059669;
+            --nav-btn-active-text: #ffffff;
+            --nav-btn-text: #374151;
+            
+            --text-primary: #064e3b;
+            --text-secondary: #166534;
+            --text-muted: #4b5563;
+            
+            --primary: #059669;
+            --primary-hover: #047857;
+            --primary-light: #d1fae5;
+            --primary-focus: rgba(5, 150, 105, 0.25);
+            
+            --border-color: #bbf7d0;
+            --border-focus: #059669;
+            
+            --table-header-bg: #ecfdf5;
+            --table-header-text: #065f46;
+            --table-row-hover: #f0fdf4;
+            --table-row-alt: #ffffff;
+        }
+
+        /* ==========================================================================
+           RESETEO Y ESTILOS BASE
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 40px;
+        }
+
+        /* ==========================================================================
+           CABECERA ELEGANTE CON LOGOTIPOS (FLEXBOX)
+           ========================================================================== */
+        header {
+            background: var(--bg-header-gradient);
+            color: #ffffff;
+            padding: 20px 24px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        .header-container {
+            max-width: 1050px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .header-logo-box {
+            flex: 0 0 85px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-logo {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.12);
+            padding: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: transform 0.2s ease;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .header-logo-fallback {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-text-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 4px 14px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.92;
+            font-weight: 500;
+        }
+
+        @media (max-width: 680px) {
+            .header-container {
+                flex-direction: column;
+                gap: 14px;
+            }
+            .header-logo-box {
+                display: inline-flex;
+            }
+        }
+
+        /* ==========================================================================
+           NAVEGACIÓN SEGMENTADA MODERNA
+           ========================================================================== */
+        .nav-wrapper {
+            max-width: 950px;
+            margin: -20px auto 0;
+            padding: 0 16px;
+            z-index: 10;
+            position: relative;
+            width: 100%;
+        }
+
+        nav {
+            display: flex;
+            background: var(--bg-nav);
+            padding: 6px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            gap: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        nav button {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: transparent;
+            border: none;
+            color: var(--nav-btn-text);
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        nav button:hover:not(.active) {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        nav button.active {
+            background-color: var(--nav-btn-active-bg);
+            color: var(--nav-btn-active-text);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ==========================================================================
+           CONTENEDOR PRINCIPAL Y TARJETAS
+           ========================================================================== */
+        .container {
+            max-width: 950px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 0 16px;
+            flex: 1;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--bg-container);
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ==========================================================================
+           FORMULARIO DE ENTRADA & CONTROLES
+           ========================================================================== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            font-size: 16px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px 14px;
+            font-size: 14px;
+            background-color: var(--bg-card-subtle);
+            color: var(--text-primary);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-wrapper input,
+        .input-wrapper select {
+            padding-left: 40px;
+        }
+
+        input:hover, select:hover, textarea:hover {
+            border-color: var(--text-muted);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--border-focus);
+            background-color: var(--bg-container);
+            box-shadow: 0 0 0 3.5px var(--primary-focus);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 75px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Selector de Estado tipo Botones Píldora (Proceso) */
+        .status-radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .status-radio-card {
+            position: relative;
+        }
+
+        .status-radio-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .status-label-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 700;
+            background: var(--bg-card-subtle);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .status-radio-card input:hover + .status-label-box {
+            border-color: var(--primary);
+        }
+
+        .status-radio-card input:checked + .status-label-box.presente {
+            background: var(--success-bg);
+            color: var(--success-text);
+            border-color: var(--success);
+            box-shadow: 0 0 0 2px var(--success);
+        }
+
+        .status-radio-card input:checked + .status-label-box.ausente {
+            background: var(--danger-bg);
+            color: var(--danger-text);
+            border-color: var(--danger);
+            box-shadow: 0 0 0 2px var(--danger);
+        }
+
+        .status-radio-card input:checked + .status-label-box.tardanza {
+            background: var(--warning-bg);
+            color: var(--warning-text);
+            border-color: var(--warning);
+            box-shadow: 0 0 0 2px var(--warning);
+        }
+
+        .status-radio-card input:checked + .status-label-box.excusa {
+            background: var(--info-bg);
+            color: var(--info-text);
+            border-color: var(--info);
+            box-shadow: 0 0 0 2px var(--info);
+        }
+
+        /* ==========================================================================
+           TARJETAS KPI / MÉTRICAS (SALIDA)
+           ========================================================================== */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-card {
+            background: var(--bg-container);
+            padding: 16px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .kpi-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .kpi-icon.total { background: var(--primary-light); color: var(--primary); }
+        .kpi-icon.presentes { background: var(--success-bg); color: var(--success-text); }
+        .kpi-icon.tardanzas { background: var(--warning-bg); color: var(--warning-text); }
+        .kpi-icon.ausencias { background: var(--danger-bg); color: var(--danger-text); }
+
+        .kpi-value {
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--text-primary);
+        }
+
+        .kpi-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        /* ==========================================================================
+           BARRA DE FILTROS AVANZADOS (SALIDA)
+           ========================================================================== */
+        .filter-toolbar {
+            background: var(--bg-card-subtle);
+            padding: 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 18px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        @media (max-width: 768px) {
+            .filter-toolbar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==========================================================================
+           TABLA DE ASISTENCIAS MODERNA (SALIDA)
+           ========================================================================== */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-container);
+            box-shadow: var(--shadow-sm);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 13.5px;
+        }
+
+        thead tr {
+            background-color: var(--table-header-bg);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        th {
+            padding: 12px 16px;
+            font-weight: 700;
+            color: var(--table-header-text);
+            text-transform: uppercase;
+            font-size: 11.5px;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--table-row-alt);
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background-color: var(--table-row-hover);
+        }
+
+        td {
+            padding: 12px 16px;
+            color: var(--text-primary);
+            vertical-align: middle;
+        }
+
+        /* Insignias de Estado (Badges) */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .badge-presente {
+            background-color: var(--success-bg);
+            color: var(--success-text);
+        }
+        .badge-presente .badge-dot { background-color: var(--success); }
+
+        .badge-ausente {
+            background-color: var(--danger-bg);
+            color: var(--danger-text);
+        }
+        .badge-ausente .badge-dot { background-color: var(--danger); }
+
+        .badge-tardanza {
+            background-color: var(--warning-bg);
+            color: var(--warning-text);
+        }
+        .badge-tardanza .badge-dot { background-color: var(--warning); }
+
+        .badge-excusa {
+            background-color: var(--info-bg);
+            color: var(--info-text);
+        }
+        .badge-excusa .badge-dot { background-color: var(--info); }
+
+        .btn-action-delete {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid transparent;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .btn-action-delete:hover {
+            background: var(--danger-bg);
+            border-color: var(--danger);
+        }
+
+        /* Estado Vacío (Empty State) */
+        .empty-state {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .empty-state-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+
+        .empty-state-text {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .empty-state-sub {
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        /* ==========================================================================
+           BARRA DE ACCIONES SECUNDARIAS
+           ========================================================================== */
+        .table-actions-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 18px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn-group-left, .btn-group-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-card-subtle);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-export {
+            background-color: #065f46;
+            color: #ffffff;
+            border: 1px solid #059669;
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+        }
+
+        .btn-export:hover {
+            background-color: #047857;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-bg);
+            color: var(--danger-text);
+            border: 1px solid var(--danger);
+            padding: 8px 14px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger);
+            color: #ffffff;
+        }
+
+        /* ==========================================================================
+           LISTA DE ESTUDIANTES REGISTRADOS EN ENTRADA
+           ========================================================================== */
+        .student-list-container {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: var(--radius-full);
+            display: inline-block;
+        }
+
+        /* ==========================================================================
+           TOAST NOTIFICATION & FLOATING THEME TOGGLE
+           ========================================================================== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 9999;
+            transform: translateX(120%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success { background: #065f46; border-left: 4px solid #10b981; }
+        .toast.info { background: #0369a1; border-left: 4px solid #38bdf8; }
+        .toast.danger { background: #991b1b; border-left: 4px solid #ef4444; }
+
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            box-shadow: var(--shadow-lg);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Estilo de Impresión */
+        @media print {
+            header, nav, .filter-toolbar, .table-actions-bar, .theme-toggle-btn, .btn-action-delete, .nav-wrapper {
+                display: none !important;
+            }
+            .container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .card {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+            }
+            .tab-content {
+                display: block !important;
+            }
+            #entrada, #proceso {
+                display: none !important;
+            }
+            #salida {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NOTIFICACIÓN FLOTANTE (TOAST) -->
+    <div id="toast" class="toast">
+        <span id="toast-icon">✅</span>
+        <span id="toast-msg">Mensaje del sistema</span>
+    </div>
+
+    <!-- CABECERA PRINCIPAL CON LOGOTIPOS INSTITUCIONALES (FLEXBOX) -->
+    <header>
+        <div class="header-container">
+            <!-- LOGO 1: INSTITUTO EVEREST (IZQUIERDA) -->
+            <div class="header-logo-box">
+                <img src="assets/logo-everest.png" alt="Logo Instituto Everest" class="header-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="header-logo-fallback" style="display: none;" title="Logo Instituto Everest">🏛️</div>
+            </div>
+
+            <!-- TÍTULO Y DESCRIPCIÓN CENTRAL -->
+            <div class="header-text-center">
+                <div class="header-badge">🏛️ Instituto No Gubernamental Everest</div>
+                <h1>Sistema de Asistencia Estudiantil</h1>
+                <p>Control Académico, Registro Diario y Reportes Estadísticos</p>
+            </div>
+
+            <!-- LOGO 2: SISTEMA DE ASISTENCIA SAE (DERECHA) -->
+            <div class="header-logo-box">
+                <img src="assets/logo-sistema.png" alt="Logo Sistema SAE" class="header-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="header-logo-fallback" style="display: none;" title="Logo Sistema SAE">📊</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVEGACIÓN SEGMENTADA POR PESTAÑAS -->
+    <div class="nav-wrapper">
+        <nav>
+            <button class="tab-btn active" onclick="switchTab('entrada', event)">
+                <span>👤</span> 1. Registro (Entrada)
+            </button>
+            <button class="tab-btn" onclick="switchTab('proceso', event)">
+                <span>📝</span> 2. Asistencia (Proceso)
+            </button>
+            <button class="tab-btn" onclick="switchTab('salida', event)">
+                <span>📊</span> 3. Historial (Salida)
+            </button>
+        </nav>
+    </div>
+
+    <div class="container">
+
+        <!-- ====================================================================
+             1. PANTALLA DE ENTRADA: REGISTRO DE ESTUDIANTES
+             ==================================================================== -->
+        <div id="entrada" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="card-icon-badge">➕</div>
+                        <div>
+                            <h2 class="card-title">Formulario de Entrada: Registro de Estudiante</h2>
+                            <p class="card-subtitle">Ingresa la información del estudiante para habilitarlo en el sistema</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="form-estudiante" onsubmit="registrarEstudiante(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nombre"><span>📝</span> Nombre(s):</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">👤</span>
+                                <input type="text" id="nombre" placeholder="Ej. Carlos Roberto" required autocomplete="given-name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellido"><span>📝</span> Apellidos:</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🏷️</span>
+                                <input type="text" id="apellido" placeholder="Ej. Gómez López" required autocomplete="family-name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="seccion"><span>🏫</span> Sección Académica:</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🎓</span>
+                            <select id="seccion" required>
+                                <option value="">-- Seleccione la Sección --</option>
+                                <option value="I BTP Informática">I BTP Informática</option>
+                                <option value="II BTP Informática">II BTP Informática</option>
+                                <option value="I BTP Contaduría y Finanzas">I BTP Contaduría y Finanzas</option>
+                                <option value="II BTP Contaduría y Finanzas">II BTP Contaduría y Finanzas</option>
+                                <option value="III BTP Informática">III BTP Informática</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span>💾</span> Guardar Estudiante
+                    </button>
+                </form>
+
+                <div class="student-list-container">
+                    <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--text-primary);">
+                        Estudiantes Registrados en el Sistema (<span id="total-estudiantes-count">0</span>)
+                    </h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre Completo</th>
+                                    <th>Sección</th>
+                                    <th style="text-align: right;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-estudiantes-body">
+                                <!-- Generado por JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====================================================================
+             2. PANTALLA DE PROCESO: CONTROL DE ASISTENCIA DIARIA
+             ==================================================================== -->
+        <div id="proceso" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="card-icon-badge">📋</div>
+                        <div>
+                            <h2 class="card-title">Proceso de Control: Pase de Lista</h2>
+                            <p class="card-subtitle">Registra el estado diario de asistencia para cada estudiante</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="form-asistencia" onsubmit="registrarAsistencia(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fecha"><span>📅</span> Fecha del Registro:</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🗓️</span>
+                                <input type="date" id="fecha" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estudiante-select"><span>👤</span> Seleccionar Estudiante:</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🎓</span>
+                                <select id="estudiante-select" required>
+                                    <option value="">-- Cargar estudiantes primero --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label><span>📌</span> Estado de Asistencia:</label>
+                        <div class="status-radio-group">
+                            <label class="status-radio-card">
+                                <input type="radio" name="estado" value="Presente" checked>
+                                <div class="status-label-box presente">
+                                    <span>✅</span> Presente
+                                </div>
+                            </label>
+                            <label class="status-radio-card">
+                                <input type="radio" name="estado" value="Ausente">
+                                <div class="status-label-box ausente">
+                                    <span>❌</span> Ausente
+                                </div>
+                            </label>
+                            <label class="status-radio-card">
+                                <input type="radio" name="estado" value="Tardanza">
+                                <div class="status-label-box tardanza">
+                                    <span>⏰</span> Tardanza
+                                </div>
+                            </label>
+                            <label class="status-radio-card">
+                                <input type="radio" name="estado" value="Excusa">
+                                <div class="status-label-box excusa">
+                                    <span>📄</span> Excusa
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 24px;">
+                        <label for="observacion"><span>💬</span> Observaciones o Comentarios (Opcional):</label>
+                        <textarea id="observacion" placeholder="Ej. Presentó excusa médica firmada por la dirección..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span>⚡</span> Registrar Asistencia
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ====================================================================
+             3. PANTALLA DE SALIDA: HISTORIAL Y REPORTES ESTADÍSTICOS
+             ==================================================================== -->
+        <div id="salida" class="tab-content">
+            <!-- TARJETAS DE MÉTRICAS / KPIS -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon total">📊</div>
+                    <div>
+                        <div class="kpi-value" id="kpi-total">0</div>
+                        <div class="kpi-title">Total Registros</div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon presentes">✅</div>
+                    <div>
+                        <div class="kpi-value" id="kpi-presentes">0</div>
+                        <div class="kpi-title">Presentes</div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon tardanzas">⏰</div>
+                    <div>
+                        <div class="kpi-value" id="kpi-tardanzas">0</div>
+                        <div class="kpi-title">Tardanzas</div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon ausencias">❌</div>
+                    <div>
+                        <div class="kpi-value" id="kpi-ausencias">0</div>
+                        <div class="kpi-title">Ausencias</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <div class="card-icon-badge">📁</div>
+                        <div>
+                            <h2 class="card-title">Salida de Datos: Historial Completo</h2>
+                            <p class="card-subtitle">Consulta, filtra y exporta las asistencias del sistema</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILTROS DE BÚSQUEDA -->
+                <div class="filter-toolbar">
+                    <div class="form-group">
+                        <label for="filter-buscar">🔍 Buscar por Estudiante:</label>
+                        <input type="text" id="filter-buscar" placeholder="Escribe un nombre..." oninput="filtrarTabla()">
+                    </div>
+                    <div class="form-group">
+                        <label for="filter-seccion">🏫 Sección:</label>
+                        <select id="filter-seccion" onchange="filtrarTabla()">
+                            <option value="">Todas las Secciones</option>
+                            <option value="I BTP Informática">I BTP Informática</option>
+                            <option value="II BTP Informática">II BTP Informática</option>
+                            <option value="I BTP Contaduría y Finanzas">I BTP Contaduría y Finanzas</option>
+                            <option value="II BTP Contaduría y Finanzas">II BTP Contaduría y Finanzas</option>
+                            <option value="III BTP Informática">III BTP Informática</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filter-estado">📌 Estado:</label>
+                        <select id="filter-estado" onchange="filtrarTabla()">
+                            <option value="">Todos los Estados</option>
+                            <option value="Presente">Presente</option>
+                            <option value="Ausente">Ausente</option>
+                            <option value="Tardanza">Tardanza</option>
+                            <option value="Excusa">Excusa</option>
+                        </select>
+                    </div>
+                    <button class="btn-secondary" onclick="limpiarFiltros()" style="height: 42px;">
+                        <span>🔄</span> Limpiar
+                    </button>
+                </div>
+
+                <!-- TABLA HISTÓRICA -->
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Estudiante</th>
+                                <th>Sección</th>
+                                <th>Estado</th>
+                                <th>Observaciones</th>
+                                <th style="text-align: right;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-asistencias-body">
+                            <!-- Generado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ACCIONES DE EXPORTACIÓN Y LIMPIEZA -->
+                <div class="table-actions-bar">
+                    <div class="btn-group-left">
+                        <button class="btn-export" onclick="exportarCSV()">
+                            <span>📥</span> Exportar a Excel (CSV)
+                        </button>
+                        <button class="btn-secondary" onclick="window.print()">
+                            <span>🖨️</span> Imprimir Reporte
+                        </button>
+                    </div>
+                    <div class="btn-group-right">
+                        <button class="btn-danger" onclick="borrarTodoElHistorial()">
+                            <span>🗑️</span> Vaciar Todo el Historial
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BOTÓN DE CAMBIO DE TEMA FLOTANTE -->
+    <button class="theme-toggle-btn" onclick="alternarTema()" title="Cambiar tema visual">🎨</button>
+
+    <!-- ====================================================================
+         LÓGICA DE PROGRAMACIÓN Y PERSISTENCIA (LOCALSTORAGE + FIREBASE SYNC)
+         ==================================================================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // Claves de Almacenamiento Local
+        const STORAGE_KEYS = {
+            ESTUDIANTES: 'sae_estudiantes',
+            ASISTENCIAS: 'sae_asistencias',
+            TEMA: 'sae_tema'
+        };
+
+        // Datos iniciales de demostración si la base de datos local está vacía
+        const defaultEstudiantes = [
+            { id: "1", nombre: "Leonel", apellido: "Reyes", seccion: "II BTP Informática" },
+            { id: "2", nombre: "María", apellido: "Fernández", seccion: "II BTP Informática" },
+            { id: "3", nombre: "Kevin", apellido: "Barahona", seccion: "I BTP Contaduría y Finanzas" },
+            { id: "4", nombre: "Sofía", apellido: "Martínez", seccion: "I BTP Informática" }
+        ];
+
+        const hoy = new Date().toISOString().split('T')[0];
+        const defaultAsistencias = [
+            { id: "101", fecha: hoy, estudianteNombre: "Leonel Reyes", seccion: "II BTP Informática", estado: "Presente", observacion: "Puntual" },
+            { id: "102", fecha: hoy, estudianteNombre: "María Fernández", seccion: "II BTP Informática", estado: "Tardanza", observacion: "Llegó 10 min tarde por transporte" },
+            { id: "103", fecha: hoy, estudianteNombre: "Kevin Barahona", seccion: "I BTP Contaduría y Finanzas", estado: "Ausente", observacion: "Sin justificar" },
+            { id: "104", fecha: hoy, estudianteNombre: "Sofía Martínez", seccion: "I BTP Informática", estado: "Excusa", observacion: "Cita médica comprobada" }
+        ];
+
+        // Variables de Estado en Memoria
+        let estudiantes = [];
+        let asistencias = [];
+        const temas = ['', 'theme-dark', 'theme-emerald'];
+        let temaActual = 0; // 0: Claro, 1: Oscuro, 2: Verde
+
+        // Instancia opcional de Firebase Realtime Database
+        let db = null;
+
+        // ====================================================================
+        // GESTIÓN DE ALMACENAMIENTO LOCAL (PERSISTENCIA INMEDIATA)
+        // ====================================================================
+        function cargarDatosLocales() {
+            try {
+                const estGuardados = localStorage.getItem(STORAGE_KEYS.ESTUDIANTES);
+                if (estGuardados) {
+                    estudiantes = JSON.parse(estGuardados);
+                } else {
+                    estudiantes = defaultEstudiantes;
+                    localStorage.setItem(STORAGE_KEYS.ESTUDIANTES, JSON.stringify(estudiantes));
+                }
+
+                const asistGuardadas = localStorage.getItem(STORAGE_KEYS.ASISTENCIAS);
+                if (asistGuardadas) {
+                    asistencias = JSON.parse(asistGuardadas);
+                } else {
+                    asistencias = defaultAsistencias;
+                    localStorage.setItem(STORAGE_KEYS.ASISTENCIAS, JSON.stringify(asistencias));
+                }
+            } catch (err) {
+                console.warn("Error leyendo localStorage, cargando datos base:", err);
+                estudiantes = defaultEstudiantes;
+                asistencias = defaultAsistencias;
+            }
+        }
+
+        function guardarDatosLocales() {
+            try {
+                localStorage.setItem(STORAGE_KEYS.ESTUDIANTES, JSON.stringify(estudiantes));
+                localStorage.setItem(STORAGE_KEYS.ASISTENCIAS, JSON.stringify(asistencias));
+            } catch (err) {
+                console.error("Error al guardar en localStorage:", err);
+            }
+        }
+
+        // Cargar tema guardado al iniciar
+        const temaGuardado = localStorage.getItem(STORAGE_KEYS.TEMA);
+        if (temaGuardado) {
+            document.body.classList.remove('theme-dark', 'theme-emerald');
+            if (temaGuardado !== '') {
+                document.body.classList.add(temaGuardado);
+            }
+            temaActual = temas.indexOf(temaGuardado);
+            if (temaActual === -1) temaActual = 0;
+        }
+
+        // ====================================================================
+        // CAMBIO FLOTANTE DE TEMAS (EXPUESTO A WINDOW)
+        // ====================================================================
+        window.alternarTema = function() {
+            document.body.classList.remove('theme-dark', 'theme-emerald');
+            temaActual = (temaActual + 1) % temas.length;
+            const nuevoTema = temas[temaActual];
+            if (nuevoTema !== '') {
+                document.body.classList.add(nuevoTema);
+            }
+            localStorage.setItem(STORAGE_KEYS.TEMA, nuevoTema);
+            const nombresTemas = ['Azul Institucional', 'Modo Oscuro Pro', 'Verde Esmeralda'];
+            window.mostrarToast(`Tema: ${nombresTemas[temaActual]}`, "info");
+        };
+
+        // ====================================================================
+        // INICIALIZACIÓN Y SINCRONIZACIÓN
+        // ====================================================================
+        // 1. Cargar inmediatamente desde LocalStorage para garantizar respuesta instantánea
+        cargarDatosLocales();
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Establecer fecha de hoy por defecto en el formulario de asistencia
+            const fechaEl = document.getElementById('fecha');
+            if (fechaEl) {
+                fechaEl.value = new Date().toISOString().split('T')[0];
+            }
+
+            // Renderizado inicial con datos locales garantizados
+            renderEstudiantes();
+            renderAsistencias();
+
+            // 2. Conectar opcionalmente a Firebase en segundo plano para respaldo en la nube
+            try {
+                const firebaseConfig = {
+                    databaseURL: "https://sae-everest-default-rtdb.firebaseio.com"
+                };
+                const app = initializeApp(firebaseConfig);
+                db = getDatabase(app);
+
+                // Escuchar estudiantes de la nube si existen
+                onValue(ref(db, 'estudiantes'), (snapshot) => {
+                    const data = snapshot.val();
+                    if (data && Object.keys(data).length > 0) {
+                        const listaNube = [];
+                        Object.keys(data).forEach(id => {
+                            listaNube.push({ id, ...data[id] });
+                        });
+                        estudiantes = listaNube;
+                        guardarDatosLocales();
+                        renderEstudiantes();
+                    }
+                }, (err) => console.log("Firebase Offline / LocalStorage Activo:", err.message));
+
+                // Escuchar asistencias de la nube si existen
+                onValue(ref(db, 'asistencias'), (snapshot) => {
+                    const data = snapshot.val();
+                    if (data && Object.keys(data).length > 0) {
+                        const listaNube = [];
+                        Object.keys(data).forEach(id => {
+                            listaNube.push({ id, ...data[id] });
+                        });
+                        asistencias = listaNube;
+                        guardarDatosLocales();
+                        renderAsistencias();
+                    }
+                }, (err) => console.log("Firebase Offline / LocalStorage Activo:", err.message));
+
+            } catch (err) {
+                console.log("Firebase no disponible en este entorno, operando 100% con LocalStorage:", err);
+            }
+        });
+
+        // ====================================================================
+        // 1. REGISTRAR NUEVO ESTUDIANTE (ENTRADA)
+        // ====================================================================
+        window.registrarEstudiante = function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const seccion = document.getElementById('seccion').value;
+
+            if (!nombre || !apellido || !seccion) {
+                window.mostrarToast("Por favor completa todos los campos requeridos", "danger");
+                return;
+            }
+
+            const nuevoId = Date.now().toString();
+            const nuevoEstudiante = {
+                id: nuevoId,
+                nombre,
+                apellido,
+                seccion
+            };
+
+            // Guardar localmente
+            estudiantes.push(nuevoEstudiante);
+            guardarDatosLocales();
+            renderEstudiantes();
+            document.getElementById('form-estudiante').reset();
+            window.mostrarToast(`Estudiante "${nombre} ${apellido}" guardado correctamente`, "success");
+
+            // Respaldar en Firebase si está disponible
+            if (db) {
+                try {
+                    set(ref(db, `estudiantes/${nuevoId}`), {
+                        nombre,
+                        apellido,
+                        seccion
+                    }).catch(() => {});
+                } catch (err) {}
+            }
+        };
+
+        // RENDERIZAR TABLA Y SELECTOR DE ESTUDIANTES
+        function renderEstudiantes() {
+            const tbody = document.getElementById('tabla-estudiantes-body');
+            const select = document.getElementById('estudiante-select');
+            const count = document.getElementById('total-estudiantes-count');
+
+            if (count) count.innerText = estudiantes.length;
+            if (!tbody || !select) return;
+
+            tbody.innerHTML = '';
+            select.innerHTML = '<option value="">-- Seleccionar Estudiante --</option>';
+
+            if (estudiantes.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            <div class="empty-state-icon">👤</div>
+                            <div class="empty-state-text">No hay estudiantes registrados</div>
+                            <div class="empty-state-sub">Agrega el primer estudiante arriba</div>
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            estudiantes.forEach((e, idx) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${idx + 1}</strong></td>
+                    <td>${e.nombre} ${e.apellido}</td>
+                    <td><span class="section-tag">${e.seccion}</span></td>
+                    <td style="text-align: right;">
+                        <button class="btn-action-delete" onclick="eliminarEstudiante('${e.id}')">🗑️ Eliminar</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+
+                const opt = document.createElement('option');
+                opt.value = e.id;
+                opt.textContent = `${e.nombre} ${e.apellido} (${e.seccion})`;
+                select.appendChild(opt);
+            });
+        }
+
+        // ELIMINAR ESTUDIANTE
+        window.eliminarEstudiante = function(id) {
+            const est = estudiantes.find(e => e.id == id);
+            const nombre = est ? `${est.nombre} ${est.apellido}` : 'este estudiante';
+
+            if (confirm(`¿Estás seguro de eliminar a "${nombre}" del sistema?`)) {
+                estudiantes = estudiantes.filter(e => e.id != id);
+                guardarDatosLocales();
+                renderEstudiantes();
+                window.mostrarToast("Estudiante eliminado correctamente", "info");
+
+                if (db) {
+                    try {
+                        remove(ref(db, `estudiantes/${id}`)).catch(() => {});
+                    } catch (err) {}
+                }
+            }
+        };
+
+        // ====================================================================
+        // 2. REGISTRAR ASISTENCIA DIARIA (PROCESO)
+        // ====================================================================
+        window.registrarAsistencia = function(e) {
+            e.preventDefault();
+            const fecha = document.getElementById('fecha').value;
+            const estudianteId = document.getElementById('estudiante-select').value;
+            const estadoRadio = document.querySelector('input[name="estado"]:checked');
+            const estado = estadoRadio ? estadoRadio.value : 'Presente';
+            const observacion = document.getElementById('observacion').value.trim();
+
+            if (!fecha || !estudianteId) {
+                window.mostrarToast("Selecciona la fecha y el estudiante", "danger");
+                return;
+            }
+
+            const estudiante = estudiantes.find(e => e.id == estudianteId);
+            if (!estudiante) {
+                window.mostrarToast("Estudiante no encontrado", "danger");
+                return;
+            }
+
+            const nuevaId = Date.now().toString();
+            const nuevaAsistencia = {
+                id: nuevaId,
+                fecha,
+                estudianteNombre: `${estudiante.nombre} ${estudiante.apellido}`,
+                seccion: estudiante.seccion,
+                estado,
+                observacion: observacion || "Sin observaciones"
+            };
+
+            // Guardar localmente
+            asistencias.push(nuevaAsistencia);
+            guardarDatosLocales();
+            renderAsistencias();
+            document.getElementById('observacion').value = '';
+            window.mostrarToast(`Asistencia registrada para "${estudiante.nombre} ${estudiante.apellido}"`, "success");
+
+            // Respaldar en Firebase si está disponible
+            if (db) {
+                try {
+                    set(ref(db, `asistencias/${nuevaId}`), nuevaAsistencia).catch(() => {});
+                } catch (err) {}
+            }
+        };
+
+        // ====================================================================
+        // 3. CONSULTA, FILTRADO Y KPIS (SALIDA)
+        // ====================================================================
+        function renderAsistencias() {
+            window.filtrarTabla();
+        }
+
+        window.obtenerRegistrosFiltrados = function() {
+            const buscarEl = document.getElementById('filter-buscar');
+            const seccionEl = document.getElementById('filter-seccion');
+            const estadoEl = document.getElementById('filter-estado');
+
+            const buscar = buscarEl ? buscarEl.value.toLowerCase().trim() : '';
+            const seccion = seccionEl ? seccionEl.value : '';
+            const estado = estadoEl ? estadoEl.value : '';
+
+            return asistencias.filter(a => {
+                const coincideNombre = (a.estudianteNombre || '').toLowerCase().includes(buscar);
+                const coincideSeccion = seccion === '' || a.seccion === seccion;
+                const coincideEstado = estado === '' || a.estado === estado;
+                return coincideNombre && coincideSeccion && coincideEstado;
+            });
+        };
+
+        window.filtrarTabla = function() {
+            const filtradas = window.obtenerRegistrosFiltrados();
+            actualizarKPIs(filtradas);
+
+            const tbody = document.getElementById('tabla-asistencias-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            if (filtradas.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <div class="empty-state-icon">📋</div>
+                            <div class="empty-state-text">No hay registros de asistencia</div>
+                            <div class="empty-state-sub">Los datos registrados aparecerán en esta tabla</div>
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            [...filtradas].reverse().forEach(a => {
+                const badgeClass = {
+                    'Presente': 'badge-presente',
+                    'Ausente': 'badge-ausente',
+                    'Tardanza': 'badge-tardanza',
+                    'Excusa': 'badge-excusa'
+                }[a.estado] || 'badge-presente';
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${a.fecha}</strong></td>
+                    <td>${a.estudianteNombre}</td>
+                    <td><span class="section-tag">${a.seccion}</span></td>
+                    <td>
+                        <span class="badge ${badgeClass}">
+                            <span class="badge-dot"></span> ${a.estado}
+                        </span>
+                    </td>
+                    <td><small>${a.observacion}</small></td>
+                    <td style="text-align: right;">
+                        <button class="btn-action-delete" onclick="eliminarAsistencia('${a.id}')">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        };
+
+        function actualizarKPIs(lista) {
+            const kpiTotal = document.getElementById('kpi-total');
+            const kpiPresentes = document.getElementById('kpi-presentes');
+            const kpiTardanzas = document.getElementById('kpi-tardanzas');
+            const kpiAusencias = document.getElementById('kpi-ausencias');
+
+            if (kpiTotal) kpiTotal.innerText = lista.length;
+            if (kpiPresentes) kpiPresentes.innerText = lista.filter(a => a.estado === 'Presente').length;
+            if (kpiTardanzas) kpiTardanzas.innerText = lista.filter(a => a.estado === 'Tardanza').length;
+            if (kpiAusencias) kpiAusencias.innerText = lista.filter(a => a.estado === 'Ausente').length;
+        }
+
+        window.eliminarAsistencia = function(id) {
+            if (confirm("¿Borrar este registro de asistencia?")) {
+                asistencias = asistencias.filter(a => a.id != id);
+                guardarDatosLocales();
+                renderAsistencias();
+                window.mostrarToast("Registro borrado correctamente", "info");
+
+                if (db) {
+                    try {
+                        remove(ref(db, `asistencias/${id}`)).catch(() => {});
+                    } catch (err) {}
+                }
+            }
+        };
+
+        window.borrarTodoElHistorial = function() {
+            if (confirm("⚠️ ¿Deseas borrar TODO el historial de asistencias? Esta acción no se puede deshacer.")) {
+                asistencias = [];
+                guardarDatosLocales();
+                renderAsistencias();
+                window.mostrarToast("Historial vaciado correctamente", "info");
+
+                if (db) {
+                    try {
+                        remove(ref(db, 'asistencias')).catch(() => {});
+                    } catch (err) {}
+                }
+            }
+        };
+
+        window.limpiarFiltros = function() {
+            const b = document.getElementById('filter-buscar');
+            const s = document.getElementById('filter-seccion');
+            const e = document.getElementById('filter-estado');
+            if (b) b.value = '';
+            if (s) s.value = '';
+            if (e) e.value = '';
+            window.filtrarTabla();
+            window.mostrarToast("Filtros restablecidos", "info");
+        };
+
+        // ====================================================================
+        // EXPORTACIÓN FORMAL A EXCEL (CSV CON SEPARADOR PUNTO Y COMA)
+        // ====================================================================
+        window.exportarCSV = function() {
+            const datosParaExportar = window.obtenerRegistrosFiltrados();
+
+            if (datosParaExportar.length === 0) {
+                window.mostrarToast("No hay registros disponibles para exportar con los filtros actuales", "danger");
+                return;
+            }
+
+            const total = datosParaExportar.length;
+            const pres = datosParaExportar.filter(a => a.estado === 'Presente').length;
+            const tard = datosParaExportar.filter(a => a.estado === 'Tardanza').length;
+            const ause = datosParaExportar.filter(a => a.estado === 'Ausente').length;
+            const excu = datosParaExportar.filter(a => a.estado === 'Excusa').length;
+
+            const pctPres = total > 0 ? ((pres / total) * 100).toFixed(1) : '0.0';
+            const pctTard = total > 0 ? ((tard / total) * 100).toFixed(1) : '0.0';
+            const pctAuse = total > 0 ? ((ause / total) * 100).toFixed(1) : '0.0';
+            const pctExcu = total > 0 ? ((excu / total) * 100).toFixed(1) : '0.0';
+
+            const ahora = new Date();
+            const fechaHora = ahora.toLocaleString('es-HN');
+
+            const s = ';'; // Separador oficial para Excel en español / Windows
+            let csv = '\uFEFF'; // BOM UTF-8 para soporte de acentos y caracteres especiales
+            csv += 'sep=;\r\n'; // Directiva oficial de Excel para forzar columnas separadas
+
+            csv += '===================================================================================================\r\n';
+            csv += 'INSTITUTO NO GUBERNAMENTAL EVEREST\r\n';
+            csv += 'SISTEMA DE ASISTENCIA ESTUDIANTIL (SAE) - REPORTE OFICIAL\r\n';
+            csv += '===================================================================================================\r\n\r\n';
+
+            csv += 'Fecha y Hora de Emision:' + s + '"' + fechaHora + '"' + s + s + s + '\r\n';
+            csv += 'Total de Registros Evaluados:' + s + '"' + total + ' registros"' + s + s + s + '\r\n';
+            csv += 'Generado Por:' + s + '"Sistema SAE - Control Academico Institucional"' + s + s + s + '\r\n\r\n';
+
+            csv += 'Fecha' + s + 'Nombre del Estudiante' + s + 'Seccion Academica' + s + 'Estado de Asistencia' + s + 'Observaciones / Notas\r\n';
+
+            datosParaExportar.forEach(a => {
+                csv += '"' + a.fecha + '"' + s;
+                csv += '"' + (a.estudianteNombre || '').replace(/"/g, '""') + '"' + s;
+                csv += '"' + (a.seccion || '').replace(/"/g, '""') + '"' + s;
+                csv += '"' + a.estado + '"' + s;
+                csv += '"' + (a.observacion || '').replace(/"/g, '""') + '"\r\n';
+            });
+
+            csv += '\r\n===================================================================================================\r\n';
+            csv += 'RESUMEN Y BALANCE GENERAL DE ASISTENCIAS\r\n';
+            csv += '===================================================================================================\r\n';
+            csv += 'Estado / Indicador' + s + 'Cantidad de Registros' + s + 'Porcentaje Relativo' + s + s + '\r\n';
+            csv += 'Presentes (Asistencia Efectiva)' + s + pres + s + '"' + pctPres + '%"' + s + s + '\r\n';
+            csv += 'Tardanzas (Llegadas Tarde)' + s + tard + s + '"' + pctTard + '%"' + s + s + '\r\n';
+            csv += 'Ausencias (Inasistencias)' + s + ause + s + '"' + pctAuse + '%"' + s + s + '\r\n';
+            csv += 'Excusas (Justificadas)' + s + excu + s + '"' + pctExcu + '%"' + s + s + '\r\n';
+            csv += 'TOTAL GENERAL EVALUADO' + s + total + s + '"100.0%"' + s + s + '\r\n';
+            csv += 'Tasa Global de Asistencia Puntual:' + s + '"' + pctPres + '%"' + s + s + s + '\r\n';
+            csv += '===================================================================================================\r\n';
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute('download', `Reporte_Asistencia_Everest_${ahora.toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.mostrarToast(`Reporte formal en Excel generado (${total} registros).`, 'success', '📊');
+        };
+
+        // ====================================================================
+        // CAMBIO DE PESTAÑAS (NAVEGACIÓN)
+        // ====================================================================
+        window.switchTab = function(tabId, event) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+            if (event && event.currentTarget) event.currentTarget.classList.add('active');
+        };
+
+        // ====================================================================
+        // NOTIFICACIONES FLOTANTES (TOAST)
+        // ====================================================================
+        window.mostrarToast = function(mensaje, tipo = 'info') {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-msg');
+            const iconEl = document.getElementById('toast-icon');
+
+            if (!toast || !msgEl || !iconEl) return;
+
+            msgEl.innerText = mensaje;
+            toast.className = `toast show ${tipo}`;
+
+            if (tipo === 'success') iconEl.innerText = '✅';
+            else if (tipo === 'danger') iconEl.innerText = '❌';
+            else iconEl.innerText = 'ℹ️';
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        };
+    </script>
+</body>
+</html>
